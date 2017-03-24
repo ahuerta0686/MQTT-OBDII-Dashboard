@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <title>MQTT Powered Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+
+  <body>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">MQTT Demo Dashboard</h1>
+          <h2 class="subtitle">Hello world</h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="http://placehold.it/1280x960" alt="Image">
+                </figure>
+              </div>
+              <div class="card-content">
+                <h1 class="title">GPS Location</h1>
+                <table>
+                  <tr>
+                    <td>Longitude</td>
+                    <td>1.0000000</td>
+                  </tr>
+                  <tr>
+                    <td>Latitude</td>
+                    <td>2.0000000</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            
+          </div>
+          <div class="column">
+            <div class="card">
+              <div class="card-header">
+                <h1 class="card-header-title">OBD II Data</h1>
+              </div>
+              <div class="card-content">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Speed (GPS)</th>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <th>Absolute Throttle Position B</th>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Accelerator Pedal Position D</th>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Accelerator Pedal Position E</th>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Ambient Air Temperature</th>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th>Distance travelled sicne codes cleared</th>
+                      <td>0</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="column"></div>
+        </div>
+      </div>
+    </section>
+
+    <script src="scripts/mqtt.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>
