@@ -6,6 +6,12 @@ const gulp       = require('gulp'),
 
 var sources = gulp.src(['./public/styles/**/*.css'], {read: false});
 
+var destination = 'public/';
+
+gulp.task('set-dist', () => {
+  destination = 'dist/';
+});
+
 gulp.task('browser-sync', ['sass'], () => {
   bs.init({
     server: {
@@ -17,7 +23,7 @@ gulp.task('browser-sync', ['sass'], () => {
 gulp.task('sass', () => {
   return gulp.src('./scss/**/*.scss')
              .pipe(sass().on('error', sass.logError))
-             .pipe(gulp.dest('./public/styles'))
+             .pipe(gulp.dest(destination + 'styles'))
              .pipe(bs.reload({stream: true}));
 });
 
@@ -27,37 +33,29 @@ gulp.task('watch', ['fonts', 'vendor', 'browser-sync'], () => {
   gulp.watch('./public/**/*.html').on('change', bs.reload);
 });
 
-gulp.task('fonts', () => {
-  return gulp.src('node_modules/font-awesome/fonts/*')
-             .pipe(gulp.dest('public/fonts'));
+gulp.task('dist', ['set-dist', 'fonts', 'vendor', 'sass', 'copy:js', 'copy:html']);
+
+gulp.task('copy:js', () => {
+  gulp.src([
+    'public/scripts/torque-service.js',
+    'public/scripts/follow-car-control.js',
+    'public/scripts/view-model.js',
+    'public/scripts/main.js'
+  ])
+  .pipe(gulp.dest(destination + 'scripts'));
 });
 
-// gulp.task('bundle', () => {
-//   return gulp.src('app/**/*.*')
-//              .pipe(webpack({
-//                 watch: true,
-//                 entry: './app/app.module.js',
-//                 output: {
-//                   filename: 'app.bundle.js'
-//                 },
-//                 module: {
-//                   loaders: [
-//                     { test: /\.html$/, loader: 'ng-cache-loader' },
-//                     { test: /\.js$/, loader: 'babel-loader', query: { presets: ['es2015'] } },
-//                     { test: /\.scss$/, loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader' }
-//                   ]
-//                 }
-//               }))
-//              .pipe(gulp.dest('public/scripts/'));
-// });
+gulp.task('copy:html', () => {
+  gulp.src([
+    'public/index.html'
+  ])
+  .pipe(gulp.dest(destination));
+});
 
-// gulp.task('vendor:css', () => {
-//   return gulp.src([
-//     'node_modules/bulma/css/bulma.css',
-//     'node_modules/font-awesome/css/font-awesome.css'
-//   ])
-//   .pipe(gulp.dest('public/styles/vendor/'));
-// });
+gulp.task('fonts', () => {
+  return gulp.src('node_modules/font-awesome/fonts/*')
+             .pipe(gulp.dest(destination + 'fonts'));
+});
 
 gulp.task('vendor', ['mqtt', 'jquery', 'rxjs', 'paho.mqtt.js']);
 
@@ -69,7 +67,7 @@ gulp.task('mqtt', () => {
                   filename: 'mqtt.js' 
                 }
               }))
-             .pipe(gulp.dest('public/scripts/vendor/'));
+             .pipe(gulp.dest(destination + 'scripts/vendor/'));
 });
 
 gulp.task('jquery', () => {
@@ -80,7 +78,7 @@ gulp.task('jquery', () => {
                   filename: 'jquery.js'
                 }
               }))
-             .pipe(gulp.dest('public/scripts/vendor/'));
+             .pipe(gulp.dest(destination + 'scripts/vendor/'));
 });
 
 gulp.task('rxjs', () => {
@@ -91,7 +89,7 @@ gulp.task('rxjs', () => {
                   filename: 'rxjs.js'
                 }
               }))
-             .pipe(gulp.dest('public/scripts/vendor/'));
+             .pipe(gulp.dest(destination + 'scripts/vendor/'));
 });
 
 gulp.task('paho.mqtt.js', () => {
@@ -102,18 +100,5 @@ gulp.task('paho.mqtt.js', () => {
                   filename: 'mqttws31.js'
                 }
               }))
-             .pipe(gulp.dest('public/scripts/vendor/'));
+             .pipe(gulp.dest(destination + 'scripts/vendor/'));
 });
-
-// gulp.task('angular', () => {
-//   gulp.src('node_modules/angular/angular.min.js.map')
-//       .pipe(gulp.dest('public/scripts/vendor/'));
-//   return gulp.src('node_modules/angular/angular.min.js')
-//              .pipe(webpack({
-//                 output: {
-//                   library: 'angular',
-//                   filename: 'angular.js'
-//                 }
-//               }))
-//              .pipe(gulp.dest('public/scripts/vendor/'));
-// });
