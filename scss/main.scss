@@ -1,1 +1,42 @@
 @import '../node_modules/bulma/bulma.sass';
+@import '../node_modules/font-awesome/scss/font-awesome.scss';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+$control-bg: #ffffff;
+$control-bg-disabled: #fbfbfb;
+$control-shadow: rgba(0, 0, 0, 0.298039);
+$control-text: rgb(74, 74, 74);
+$control-text-hover: rgb(0, 0, 0);
+
+.google-maps-control-ui {
+  position: relative;
+  left: 10px;
+  top: 10px;
+  background-color: $control-bg;
+  border-radius: 2px;
+  box-shadow: $control-shadow 0px 1px 4px -1px;
+  cursor: pointer;
+  text-align: center;
+
+  &.disabled {
+    pointer-events: none;
+    background-color: $control-bg-disabled;
+    opacity: 0.75;
+  }
+}
+
+.google-maps-control-text {
+  color: $control-text;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 14px;
+  line-height: 32px;
+  padding: 0 8px;
+
+  .fa {
+    padding: 9px 0;
+  }
+
+  &:hover {
+    color: $control-text-hover;
+  }
+}

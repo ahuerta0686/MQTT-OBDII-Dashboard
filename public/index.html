@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="mqttObdDashboard">
   <head>
     <title>MQTT Powered Dashboard</title>
     <link rel="stylesheet" href="styles/main.css">
@@ -9,7 +9,7 @@
     <section class="hero is-primary">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">MQTT Demo Dashboard</h1>
+          <h1 class="title">MQTT OBD-II Dashboard</h1>
           <h2 class="subtitle">Hello world</h2>
         </div>
       </div>
@@ -18,72 +18,95 @@
     <section class="section">
       <div class="container">
         <div class="columns">
+          <div class="column is-two-thirds">
+            <div class="tite is-ancestor">
+              <div class="tile is-parent is-vertical">
+                <article class="tile is-child box">
+                  <div class="level has-text-centered">
+                    <div class="level-item">
+                      <div>
+                        <p class="heading" vm-bind="engineRpmFullName"></p>
+                        <p class="title"><span>?</span> <span vm-bind="engineRpmUnit"></span></p>
+                      </div>
+                    </div>
+                    <div class="level-item">
+                      <div>
+                        <p class="heading" vm-bind="gpsSpeedFullName"></p>
+                        <p class="title"><span vm-bind="gpsSpeed,round"></span> <span vm-bind="gpsSpeedUnit"></span></p>
+                      </div>
+                    </div>
+                    <div class="level-item">
+                      <div>
+                        <p class="heading" vm-bind="fuelLevelFromEngineEcuShortName">Fuel</p>
+                        <p class="title"><span vm-bind="fuelLevelFromEngineEcu,round"></span><span vm-bind="fuelLevelFromEngineEcuUnit"></span></p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <article class="tile is-child box">
+                  
+                </article>
+              </div>
+            </div>
+            <!-- <div class="card">
+              <div class="card-content">
+                <div class="level has-text-centered">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">Speed</p>
+                      <p class="title">88mph</p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">Fuel</p>
+                      <p class="title">69%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-content"></div>
+            </div> -->
+          </div>
           <div class="column">
             <div class="card">
               <div class="card-image">
-                <figure class="image is-4by3">
-                  <img src="http://placehold.it/1280x960" alt="Image">
-                </figure>
+                <figure class="image is-4by3" id="map"></figure>
               </div>
               <div class="card-content">
                 <h1 class="title">GPS Location</h1>
                 <table>
                   <tr>
-                    <td>Longitude</td>
-                    <td>1.0000000</td>
+                    <td vm-bind="longitudeFullName"></td>
+                    <td><span vm-bind="longitude"></span><span vm-bind="longitudeUnit"></span></td>
                   </tr>
                   <tr>
-                    <td>Latitude</td>
-                    <td>2.0000000</td>
+                    <td vm-bind="latitudeFullName"></td>
+                    <td><span vm-bind="latitude"></span><span vm-bind="latitudeUnit"></span></td>
                   </tr>
                 </table>
               </div>
             </div>
             
           </div>
-          <div class="column">
-            <div class="card">
-              <div class="card-header">
-                <h1 class="card-header-title">OBD II Data</h1>
-              </div>
-              <div class="card-content">
-                <table>
-                  <tbody>
-                    <tr>
-                      <th>Speed (GPS)</th>
-                      <td>22</td>
-                    </tr>
-                    <tr>
-                      <th>Absolute Throttle Position B</th>
-                      <td>0</td>
-                    </tr>
-                    <tr>
-                      <th>Accelerator Pedal Position D</th>
-                      <td>0</td>
-                    </tr>
-                    <tr>
-                      <th>Accelerator Pedal Position E</th>
-                      <td>0</td>
-                    </tr>
-                    <tr>
-                      <th>Ambient Air Temperature</th>
-                      <td>0</td>
-                    </tr>
-                    <tr>
-                      <th>Distance travelled sicne codes cleared</th>
-                      <td>0</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="column"></div>
         </div>
       </div>
     </section>
 
-    <script src="scripts/mqtt.js"></script>
+    <!-- <script src="scripts/vendor/angular.js"></script> -->
+    <script src="scripts/vendor/jquery.js"></script>
+    <script src="scripts/vendor/mqtt.js"></script>
+    <script src="scripts/vendor/mqttws31.js"></script>
+    <script src="scripts/vendor/rxjs.js"></script>
+    <!-- <script src="scripts/app.bundle.js"></script> -->
+    <!-- <script src="scripts/mqtt-service.js"></script> -->
+    <script src="scripts/torque-service.js"></script>
+    <script src="scripts/follow-car-control.js"></script>
+    <script src="scripts/view-model.js"></script>
     <script src="scripts/main.js"></script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCc1ETFRBRHE8a7TP0mdPBQ_r_t-4nIkFs&callback=initGoogleMapsApi"></script>
   </body>
 </html>
