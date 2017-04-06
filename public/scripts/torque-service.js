@@ -198,9 +198,8 @@ function TorqueService() {
   });
 
   service.data = new Rx.BehaviorSubject(data);
-  console.log(data);
 
-  service._mqttClient = new PahoMQTT.Client('broker.hivemq.com', 8000, 'clientId-asdfaqsd');
+  service._mqttClient = new PahoMQTT.Client('broker.hivemq.com', 8000, 'clientId-yzUBL20ktx');
   service._mqttClient.onMessagedArrived = function (message) {
     console.log(message);
     service._mqttClient.disconnect();
