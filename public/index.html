@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="mqttObdDashboard">
+<html>
   <head>
     <title>MQTT Powered Dashboard</title>
     <link rel="stylesheet" href="styles/main.css">
@@ -19,7 +19,31 @@
       <div class="container">
         <div class="columns">
           <div class="column is-two-thirds">
-            <div class="tite is-ancestor">
+            <div class="card">
+              <div class="card-content">
+                <div class="level has-text-centered">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading" vm-bind="engineRpmFullName"></p>
+                      <p class="title"><span>?</span> <span vm-bind="engineRpmUnit"></span></p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading" vm-bind="gpsSpeedFullName"></p>
+                      <p class="title"><span vm-bind="gpsSpeed,round"></span> <span vm-bind="gpsSpeedUnit"></span></p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading" vm-bind="fuelLevelFromEngineEcuShortName">Fuel</p>
+                      <p class="title"><span vm-bind="fuelLevelFromEngineEcu,round"></span><span vm-bind="fuelLevelFromEngineEcuUnit"></span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="tite is-ancestor">
               <div class="tile is-parent is-vertical">
                 <article class="tile is-child box">
                   <div class="level has-text-centered">
@@ -47,7 +71,7 @@
                   
                 </article>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="card">
               <div class="card-content">
                 <div class="level has-text-centered">

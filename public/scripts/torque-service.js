@@ -199,17 +199,37 @@ function TorqueService() {
 
   service.data = new Rx.BehaviorSubject(data);
 
-  service._mqttClient = new PahoMQTT.Client('broker.hivemq.com', 8000, 'clientId-yzUBL20ktx');
-  service._mqttClient.onMessagedArrived = function (message) {
-    console.log(message);
-    service._mqttClient.disconnect();
-  }
+  // service._mqttClient = new PahoMQTT.Client('broker.hivemq.com', 8000, 'clientId-yzUBL20ktx');
+  // service._mqttClient = new PahoMQTT.Client('test.mosquitto.org', 8080, 'ABC');
+  // service._mqttClient.onMessagedArrived = function (message) {
+  //   console.log(message);
+  //   service._mqttClient.disconnect();
+  // }
 
-  service._mqttClient.connect({
-    onSuccess: function () {
-      console.log('Connected!');
-      service._mqttClient.subscribe('92361f002671/mazda01');
-    }
+  // service._mqttClient.connect({
+  //   onSuccess: function () {
+  //     console.log('Connected!');
+  //     // service._mqttClient.subscribe('92361f002671/mazda01');
+  //     service._mqttClient.subscribe('presence');
+  //     var testMessage = new PahoMQTT.Message('Hello world');
+  //     testMessage.destination('presence');
+  //     service._mqttClient.send(testMessage);
+  //     // service._mqttClient.publish('presence', 'ABCDEF');
+  //   }
+  // });
+  service._mqttClient = mqtt.connect('ws://test.mosquitto.org:8080');
+  // console.log(ser)
+  service._mqttClient.on('connect', function () {
+    console.log('connected');
+    service._mqttClient.subscribe('presence');
+    // service._mqttClient.publish('presence', '{"eml":"Carlos.glvn1993@gmail.com","v":"8","session":"1490500802329","id":"65f30e7cbf52901024604bedbb9e6e1a","time":"1490501243775","kff1005":"-97.49772242","kff1006":"25.85416899","kff1001":"60.912","kff1007":"242.8","k47":"14.509804","k49":"15.686275","k4a":"7.8431373","k46":"33.0","k31":"14792.0","k5":"88.0","k4":"36.07843","kc":"1275.75","k2f":"71.37255","kff1239":"3.0","kff1010":"-8.0","kff123b":"242.8","kff123a":"10.0","kff1237":"0.020000458","kf":"39.0","k45":"4.7058825","k1f":"1479.0","kd":"61.0"}');
+    service._mqttClient.publish('presence', 'abc');
+  });
+
+  service._mqttClient.on('message', function (topic, message) {
+    console.log(message.toString());
+    service.updateData(JSON.parse(message.toString()));
+    service._mqttClient.end();
   });
 
 }
